@@ -2,6 +2,8 @@ const { DataTypes } = require('sequelize')
 const relationModel = require("../../../helpers/relational-model")
 
 module.exports = (sequelize, withRelation = ["*"]) => {
+  const studentCourse = require('./studentCourse')(sequelize, [])
+
   const Student = sequelize.define(
     'Student',
     {
@@ -16,10 +18,11 @@ module.exports = (sequelize, withRelation = ["*"]) => {
 
   relationModel(withRelation, "courses", () =>{
     Student.belongsToMany(require('./course')(sequelize, []), {
-      through: 'student_courses',
+      through: studentCourse,
       timestamps: true,
       foreignKey: 'studentId',
-      as: "courses"
+      otherKey: 'courseId',
+      as: 'courses'
     })
   })
 

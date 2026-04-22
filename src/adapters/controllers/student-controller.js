@@ -1,5 +1,5 @@
 module.exports = (useCases) => {
-  const { StudentUseCase } = useCases
+  const { StudentUseCase, CourseUseCase } = useCases
 
   async function index(req, res, next) {
     const params = req.query;
@@ -28,9 +28,11 @@ module.exports = (useCases) => {
   }
 
   async function create(req, res) {
+    const courses = await CourseUseCase.findAll()
     return res.render('student/create', {
       title: 'Tambah Student',
-      active: 'student'
+      active: 'student',
+      courses
     })
   }
 

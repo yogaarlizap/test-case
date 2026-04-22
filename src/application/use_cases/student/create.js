@@ -4,7 +4,7 @@ const AppError = require("../../../frameworks/helpers/app-error")
 const validate = (payload) => {
     const schema = Joi.object({
         fullName: Joi.string().required(),
-        courseId: Joi.number().required()
+        courseId: Joi.array().items(Joi.number()).required()
     });
 
     const validator = schema.validate(payload);

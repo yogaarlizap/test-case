@@ -19,7 +19,8 @@ module.exports = (sequelize, withRelation = ["*"]) => {
       through: 'student_courses',
       timestamps: true,
       foreignKey: 'courseId',
-      as: "students"
+      otherKey: 'studentId',
+      as: 'students'
     })
   })
 

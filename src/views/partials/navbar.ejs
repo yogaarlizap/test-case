@@ -1,0 +1,30 @@
+<nav class="bg-slate-800 text-white px-6 py-4">
+  <div class="flex items-center justify-between">
+    <div class="text-lg font-semibold">
+      Sistem Akademik
+    </div>
+
+    <ul class="flex gap-6">
+      <li>
+        <a href="/course"
+           class="hover:text-indigo-400 <%= active === 'courses' ? 'text-indigo-400 font-semibold' : '' %>">
+          Course
+        </a>
+      </li>
+
+      <li>
+        <a href="/student"
+           class="hover:text-indigo-400 <%= active === 'students' ? 'text-indigo-400 font-semibold' : '' %>">
+          Student
+        </a>
+      </li>
+
+      <li>
+        <a href="/score"
+           class="hover:text-indigo-400 <%= active === 'grades' ? 'text-indigo-400 font-semibold' : '' %>">
+          Score
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

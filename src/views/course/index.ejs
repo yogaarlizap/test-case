@@ -1,0 +1,62 @@
+<h2 class="text-2xl font-bold mb-6">
+  <%= title %>
+</h2>
+
+<div class="flex justify-end mb-4">
+  <a href="/course/create"
+     class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+    + Tambah Course
+  </a>
+</div>
+
+<div class="bg-white shadow rounded-lg overflow-hidden">
+  <table class="min-w-full border border-gray-200">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 border text-center">No</th>
+        <th class="px-4 py-2 border">Nama Mata Kuliah</th>
+        <th class="px-4 py-2 border text-center">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (courses.length === 0) { %>
+        <tr>
+          <td colspan="5" class="text-center py-6 text-gray-500">
+            Data course belum tersedia
+          </td>
+        </tr>
+      <% } %>
+
+      <% courses.forEach((course, index) => { %>
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2 border text-center">
+            <%= index + 1 %>
+          </td>
+          <td class="px-4 py-2 border">
+            <%= course.name %>
+          </td>
+          <td class="px-4 py-2 border text-center space-x-2">
+            <a href="/course/<%= course.id %>"
+              class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+              Detail
+            </a>
+            <a href="/course/edit/<%= course.id %>"
+               class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+              Edit
+            </a>
+            <form action="/course/<%= course.id %>?_method=DELETE"
+                  method="POST"
+                  onsubmit="return confirm('Yakin ingin menghapus course ini?')"
+                  class="inline">
+
+              <button type="submit"
+                      class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

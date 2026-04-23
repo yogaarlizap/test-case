@@ -15,6 +15,12 @@ module.exports = (models) => {
   function destroy(id) {
     return Score.destroy({ where: { id } })
   }
+  function bulkCreate(payload){
+    return Score.bulkCreate(payload, {
+      updateOnDuplicate: ["score"],
+      conflictAttributes: ["studentCourseId"],
+    })
+  }
 
-  return { index, show, create, update, destroy }
+  return { index, show, create, update, destroy, bulkCreate }
 }

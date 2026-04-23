@@ -1,0 +1,71 @@
+<div class="max-w-4xl mx-auto bg-white shadow rounded p-6">
+
+  <!-- Header -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold">Detail Student</h1>
+    <p class="text-gray-600">Informasi lengkap student dan nilai</p>
+  </div>
+
+  <!-- Student Info -->
+  <div class="mb-4">
+    <div class="grid grid-cols-3 gap-4">
+      <div>
+        <p class="text-sm text-gray-500">Nama Lengkap</p>
+        <p class="font-medium"><%= student.fullName %></p>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500">Total Course</p>
+        <p class="font-medium"><%= student.courses.length %></p>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500">Grade</p>
+        <p class="font-medium"><%= student.grade || "-" %></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course & Score -->
+  <div>
+    <h2 class="text-lg font-semibold mb-3">Daftar Course & Nilai</h2>
+
+    <table class="w-full border-collapse border text-sm">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border px-3 py-2 text-left">Course</th>
+          <th class="border px-3 py-2 text-left">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% student.courses.forEach(course => { %>
+          <tr>
+            <td class="border px-3 py-2 font-medium">
+              <%= course.name %>
+            </td>
+
+            <% if (course.score) { %>
+              <td class="border px-3 py-2">
+                <%= course.score.score%>
+              </td>
+            <% } else { %>
+              <td colspan="3" class="border px-3 py-2 text-gray-400 italic">
+                Belum ada nilai
+              </td>
+            <% } %>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Action -->
+  <div class="mt-6 flex gap-2">
+    <a href="/score" class="px-4 py-2 bg-gray-200 rounded">
+      Kembali
+    </a>
+    <a href="/score/edit/<%= student.id %>"
+       class="px-4 py-2 bg-blue-600 text-white rounded">
+      Tambah Nilai
+    </a>
+  </div>
+
+</div>

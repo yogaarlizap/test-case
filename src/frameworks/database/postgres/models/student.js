@@ -8,7 +8,8 @@ module.exports = (sequelize, withRelation = ["*"]) => {
     'Student',
     {
       // Model attributes are defined here
-      fullName: { type: DataTypes.STRING, allowNull: false }
+      fullName: { type: DataTypes.STRING, allowNull: false },
+      grade: { type: DataTypes.VIRTUAL }
     },
     {
       timestamps: true,

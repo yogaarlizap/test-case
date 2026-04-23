@@ -12,9 +12,51 @@ const validate = (payload) => {
 }
 
 module.exports = async (repositories, params) => {
-    const { StudentRepository } = repositories
+    const { StudentRepository, ScoreRepository } = repositories
 
     validate(params)
 
-    return await StudentRepository.show(params)
+    const student = await StudentRepository.show(params)
+
+    const score = await ScoreRepository.index();
+
+    const data = addScore(student, score);
+
+    return data
+}
+
+const addScore = (student, scores) => {
+    student.courses.forEach((course) => {
+        if(scores.length != 0){
+            scores.forEach((score) => {
+                if(course.StudentCourse.id == score.studentCourseId){
+                    course.score = score
+                }
+            })
+        } else {
+            course.score = null
+        }
+    })
+    getGrade(student)
+    return student
+}
+
+const getGrade = (student) => {
+    const courseLength = student.courses.length
+    let totalScore = 0
+    student.courses.forEach((course) => {
+        totalScore += course.score?.score || 0
+    })
+
+    if(totalScore > 70){
+        student.grade = "A"
+    }else if(totalScore < 70 && totalScore > 50){
+        student.grade = "B"
+    }else if(totalScore < 50 && totalScore > 40){
+        student.grade = "C"
+    }else{
+        student.grade = "D"
+    }
+
+    return student
 }

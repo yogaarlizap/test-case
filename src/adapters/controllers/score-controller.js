@@ -1,24 +1,24 @@
 module.exports = (useCases) => {
-  const { StudentUseCase, CourseUseCase } = useCases
+  const { ScoreUseCase, StudentUseCase, CourseUseCase } = useCases
 
   async function index(req, res, next) {
     const params = req.query;
 
-    const students = await StudentUseCase.findAll(params)
-
-    return res.render('student/index', {
-      title: 'Daftar Student',
-      active: 'student',
+    const students = await ScoreUseCase.findAll(params)
+    
+    return res.render('score/index', {
+      title: 'Daftar Score',
+      active: 'score',
       students
     })
   }
 
   async function detail(req, res, next) {
-    const student = await StudentUseCase.findOne(req.params)
+    const student = await ScoreUseCase.findOne(req.params)
 
-    return res.render('student/detail', {
-      title: 'Show Student',
-      active: 'student',
+    return res.render('score/detail', {
+      title: 'Show Score',
+      active: 'score',
       student
     })
   }
@@ -29,9 +29,9 @@ module.exports = (useCases) => {
 
   async function create(req, res) {
     const courses = await CourseUseCase.findAll()
-    return res.render('student/create', {
-      title: 'Tambah Student',
-      active: 'student',
+    return res.render('score/create', {
+      title: 'Tambah Score',
+      active: 'score',
       courses
     })
   }
@@ -39,25 +39,18 @@ module.exports = (useCases) => {
   async function edit(req, res) {
     const student = await StudentUseCase.findOne(req.params)
     const courses = await CourseUseCase.findAll()
-    return res.render('student/update', {
-      title: 'Edit Student',
-      active: 'student',
+    return res.render('score/form', {
+      title: 'Edit Score',
+      active: 'score',
       student, courses
     })
   }
 
   async function store(req, res, next) {
     try {
-      const courseIds = (req.body.courseId || [])
-        .map(Number);
+      await ScoreUseCase.create(req.body)
 
-      const body = {
-        fullName: req.body.fullName,
-        courseId: courseIds
-      }
-      await StudentUseCase.create(body)
-
-      return res.redirect('/student')
+      return res.redirect('/score')
     } catch (error) {
       next(error)
     }
@@ -65,15 +58,8 @@ module.exports = (useCases) => {
 
   async function update(req, res, next) {
     try {
-      const courseIds = (req.body.courseId || [])
-        .map(Number);
-
-      const body = {
-        fullName: req.body.fullName,
-        courseId: courseIds
-      }
-      await StudentUseCase.update(req.params, body)
-      return res.redirect('/student')
+      await StudentUseCase.update(req.params, req.body)
+      return res.redirect('/score')
     } catch (error) {
       next(error)
     }
@@ -82,7 +68,7 @@ module.exports = (useCases) => {
   async function destroy(req, res, next) {
     try {
       await StudentUseCase.destroy(req.params)
-      return res.redirect('/student')
+      return res.redirect('/score')
     } catch (error) {
       next(error)
     }

@@ -11,6 +11,9 @@ const expressConfig = (app) => {
 
   // serving static files
   app.use('/storage', express.static('storage'))
+  app.get('/', (req, res) => {
+    res.redirect('/course');
+  });
 }
 
 module.exports = expressConfig

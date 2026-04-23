@@ -1,0 +1,56 @@
+<div class="max-w-4xl mx-auto bg-white shadow rounded p-6">
+
+  <h1 class="text-xl font-bold mb-4">
+    Bulk Penilaian – <%= student.fullName %>
+  </h1>
+
+  <form method="POST" action="/score">
+
+    <table class="w-full border text-sm">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border px-3 py-2">Course</th>
+          <th class="border px-3 py-2">Nilai</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% student.courses.forEach((course, index) => { %>
+          <tr>
+            <td class="border px-3 py-2 font-medium">
+              <%= course.name %>
+
+              <input
+                type="hidden"
+                name="scores[<%= index %>][studentCourseId]"
+                value="<%= course.StudentCourse.id %>"
+              />
+            </td>
+
+            <td class="border px-3 py-2">
+              <input
+                type="number"
+                name="scores[<%= index %>][score]"
+                value="<%= course.score?.score ?? '' %>"
+                class="w-full border px-2 py-1 rounded"
+              />
+            </td>
+          </tr>
+        <% }) %>
+
+      </tbody>
+    </table>
+
+    <div class="mt-4 flex gap-2">
+      <button class="px-4 py-2 bg-blue-600 text-white rounded">
+        Simpan Semua Nilai
+      </button>
+
+      <a href="/score/<%= student.id %>"
+         class="px-4 py-2 bg-gray-200 rounded">
+        Batal
+      </a>
+    </div>
+
+  </form>
+</div>

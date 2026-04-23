@@ -6,6 +6,11 @@ module.exports = (sequelize, withRelation = ["*"]) => {
         'StudentCourse',
         {
         // Model attributes are defined here
+            id: {
+                allowNull: false,
+                type: DataTypes.INTEGER,
+                primaryKey: true
+            },
             studentId: {
                 allowNull: false,
                 type: DataTypes.INTEGER,

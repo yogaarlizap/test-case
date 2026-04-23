@@ -17,7 +17,7 @@ module.exports = (useCases) => {
     const course = await CourseUseCase.findOne(req.params)
 
     return res.render('course/detail', {
-      title: 'Edit Course',
+      title: 'Show Course',
       active: 'course',
       course
     })

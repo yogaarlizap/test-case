@@ -14,7 +14,12 @@ module.exports = (sequelize, withRelation = ["*"]) => {
     },
     {
       timestamps: false,
-      tableName: 'scores'
+      tableName: 'scores',
+      uniqueKeys: {
+        unique_student_course: {
+          fields: ["studentCourseId"],
+        },
+      }
     }
   );
 

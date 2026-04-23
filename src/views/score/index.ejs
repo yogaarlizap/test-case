@@ -1,0 +1,67 @@
+<h2 class="text-2xl font-bold mb-6">
+  <%= title %>
+</h2>
+
+<div class="bg-white shadow rounded-lg overflow-hidden">
+  <table class="min-w-full border border-gray-200">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 border text-center">No</th>
+        <th class="px-4 py-2 border">Nama Lengkap</th>
+        <th class="px-4 py-2 border">Nilai</th>
+        <th class="px-4 py-2 border text-center">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (students.length === 0) { %>
+        <tr>
+          <td colspan="5" class="text-center py-6 text-gray-500">
+            Data student belum tersedia
+          </td>
+        </tr>
+      <% } %>
+
+      <% students.forEach((student, index) => { %>
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-2 border text-center">
+            <%= index + 1 %>
+          </td>
+          <td class="px-4 py-2 border">
+            <%= student.fullName %>
+          </td>
+          <td class="px-4 py-2 border">
+            <% student.courses.forEach(course => { %>
+              <div class="text-sm">
+                <span class="font-medium"><%= course.name %></span>
+                -
+                <span class="text-gray-600">
+                  <%= course.score?.score ?? 'Belum dinilai' %>
+                </span>
+              </div>
+            <% }) %>
+          </td>
+          <td class="px-4 py-2 border text-center space-x-2">
+            <a href="/score/<%= student.id %>"
+              class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+              Detail
+            </a>
+            <a href="/score/edit/<%= student.id %>"
+               class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+              Edit
+            </a>
+            <form action="/score/<%= student.id %>?_method=DELETE"
+                  method="POST"
+                  onsubmit="return confirm('Yakin ingin menghapus student ini?')"
+                  class="inline">
+
+              <button type="submit"
+                      class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

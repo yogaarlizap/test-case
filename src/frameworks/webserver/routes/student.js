@@ -10,7 +10,7 @@ module.exports = (controllers) => {
 
     router.put("/student/:id", controller.update)
     router.delete("/student/:id", controller.destroy)
-    router.get('/student/:id', controller.show)
+    router.get('/student/:id', controller.detail)
     router.get('/student/edit/:id', controller.edit)
     return router
 }

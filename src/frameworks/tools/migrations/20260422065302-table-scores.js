@@ -33,6 +33,12 @@ module.exports = {
         type: Sequelize.INTEGER
       }
     })
+
+    await queryInterface.addConstraint("scores", {
+      fields: ["studentCourseId"],
+      type: "unique",
+      name: "unique_student_course",
+    });
   },
 
   async down(queryInterface, Sequelize) {

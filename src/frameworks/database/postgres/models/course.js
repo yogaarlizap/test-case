@@ -7,6 +7,9 @@ module.exports = (sequelize, withRelation = ["*"]) => {
     {
       // Model attributes are defined here
       name: { type: DataTypes.STRING, allowNull: false },
+      score: {
+        type: DataTypes.VIRTUAL
+      }
     },
     {
       timestamps: true,

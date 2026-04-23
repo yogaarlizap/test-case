@@ -31,10 +31,11 @@ const expressConfig = require('./frameworks/webserver/express')
   //USE CASE
   const CourseUseCase = require("./application/use_cases/course/index")
   const StudentUseCase = require("./application/use_cases/student/index")
-
+  const ScoreUseCase = require("./application/use_cases/score/index")
   //CONTROLLER
   const CourseController = require("./adapters/controllers/course-controller")
   const StudentController = require("./adapters/controllers/student-controller")
+  const ScoreController = require("./adapters/controllers/score-controller")
 
   /*===================================================DEFINE========================================================== */
   //MODELS
@@ -56,13 +57,15 @@ const expressConfig = require('./frameworks/webserver/express')
   //USE CASES
   const useCases = {
     CourseUseCase: await CourseUseCase(repositories),
-    StudentUseCase: await StudentUseCase(repositories)
+    StudentUseCase: await StudentUseCase(repositories),
+    ScoreUseCase: await ScoreUseCase(repositories)
   }
 
   //CONTROLLERS
   const controllers = {
     courseController: await CourseController(useCases),
-    studentController: await StudentController(useCases)
+    studentController: await StudentController(useCases),
+    scoreController: await ScoreController(useCases)
   }
 
   // DEFINE ROUTES

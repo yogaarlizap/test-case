@@ -5,6 +5,7 @@ const express = require("express");
 const path = require("path")
 const methodOverride = require('method-override');
 const student = require('./student');
+const score = require('./score');
 
 const routes = (app, controllers) => {
   app.use(expressLayouts)
@@ -14,8 +15,10 @@ const routes = (app, controllers) => {
   app.use(express.urlencoded({ extended: true }))
   app.use(methodOverride('_method'))
 
+  
   app.use(course(controllers))
   app.use(student(controllers))
+  app.use(score(controllers))
   // PROJECT
   // app.get('/projects', projectController.index)
   // app.get('/projects/:id', projectController.show)
